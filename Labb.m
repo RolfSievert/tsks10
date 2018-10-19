@@ -19,10 +19,10 @@ Y_abs = abs(Y_shift/L);
 f1 = 45500;
 f2 = 45501;
 
-f = Fs*(-L/2+1:L/2)/L;
-plot(f, Y_abs);
-xlabel('f (Hz)');
-ylabel('abs(Y)/2');
+f = 10^-3 * Fs*(1:L/2)/L;
+plot(f, Y_abs(L/2+1: end));
+xlabel('Frekvens f (kHz)');
+ylabel('Amplitud |Y(f)|');
 
 %% Apply filter to signal and plot
 carry_f = 55*10^3;
@@ -39,7 +39,9 @@ ylabel('y(t)');
 %% Remove eco
 [corr, lags] = xcorr(IQ);
 plot(lags*T, corr); % Times T because xcorr returns samples
-xlim([-1 1]);
+xlim([0 0.5]);
+xlabel('Tid t (sekunder)');
+ylabel('Korrelation på y(t)');
 
 eco_t = 0.38;
 eco_s = eco_t*Fs;
